@@ -1,0 +1,57 @@
+﻿@page "/image-upload"
+@using Microsoft.AspNetCore.Components.Forms
+@rendermode InteractiveServer
+
+@inject ImageService ImageService
+@inject NavigationManager NavigationManager
+
+<h3>Upload and Preview</h3>
+
+<InputFile OnChange="OnInputFileChange" accept="image/*" />
+
+@if (imageDataUrl != null)
+{
+    <div style="margin-top:20px;">
+        <img src="@imageDataUrl" alt="Image preview" style="max-width:400px; max-height:400px;" />
+    </div>
+    <button @onclick="NavigateHome">Use This Image</button>
+}
+else
+{
+    <p>No image selected.</p>
+}
+
+@code {
+    private string? imageDataUrl;
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Component initialized.");
+    }
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        Console.WriteLine("File change event triggered.");
+        var file = e.File;
+        if (file != null)
+        {
+            using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10MB
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            var bytes = ms.ToArray();
+            imageDataUrl = $"data:{file.ContentType};base64,{Convert.ToBase64String(bytes)}";
+            ImageService.ImageDataUrl = imageDataUrl;
+            // Debugging output
+            Console.WriteLine($"Image uploaded: {file.Name}, Size: {file.Size}, Type: {file.ContentType}");
+        }
+        else
+        {
+            Console.WriteLine("No file selected."); // Debugging
+        }
+    }
+    private void NavigateHome()
+    {
+        // Navigate to home page
+        NavigationManager.NavigateTo("/");
+    }
+}

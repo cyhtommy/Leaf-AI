@@ -1,0 +1,216 @@
+﻿@page "/database"
+@using Leaf_AI.Web.Components.Model.Models
+@inject HttpClient Http
+@using System.Net.Http.Json
+@using System.Text.Json
+@inject NavigationManager NavManager
+
+@rendermode InteractiveServer
+
+<PageTitle>Database</PageTitle>
+
+<h1>Database</h1>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .left-column {
+        flex: 0 0 250px; 
+        margin-right: 20px; /* Space between columns */
+    }
+
+    .right-column {
+        flex: 1; /* Fixed width for the dropdown column */
+    }
+</style>
+
+
+@code {
+    private string CapitalizeFirstLetter(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return value;
+
+        return char.ToUpper(value[0]) + value.Substring(1);
+    }
+}
+
+
+@code {
+    private DataModel dataModel = new DataModel();
+    private List<string> selectedFeatures = new List<string>();
+    private string json = "";
+    private string error = "";
+    private List<ObjectItem> filteredObjects = new List<ObjectItem>(); // New list for filtered objects
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var baseUri = NavManager.BaseUri;
+            var uri = new Uri(new Uri(baseUri), "leaves_data.json");
+            Console.WriteLine($"Requesting JSON from: {uri}");
+
+            selectedFeatures = new List<string> { "All", "All", "All" };
+
+            json = await Http.GetStringAsync(uri);
+            Console.WriteLine($"JSON length: {json?.Length}");
+            var testObj = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
+            Console.WriteLine("Top-level JSON keys: " + string.Join(", ", testObj.Keys));
+            if (string.IsNullOrEmpty(json))
+            {
+                error = "JSON string is empty.";
+            }
+            else
+            {
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                dataModel = JsonSerializer.Deserialize<DataModel>(json, options);
+
+                if (dataModel == null)
+                {
+                    error = "Failed to deserialize JSON.";
+                }
+                else if (dataModel.FeatureOptions == null)
+                {
+                    error = "FeatureOptions is null.";
+                }
+            }
+            if (dataModel != null && dataModel.FeatureOptions != null)
+            {
+                // Initialize selectedFeatures based on the number of features
+                selectedFeatures = Enumerable.Repeat("All", dataModel.FeatureOptions.Count).ToList();
+                // Initialize filteredObjects with all objects
+                filteredObjects = new List<ObjectItem>(dataModel.Objects);
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+
+
+    private void FilterObjects()
+    {
+        if (dataModel?.Objects != null)
+        {
+            filteredObjects = dataModel.Objects.Where(obj =>
+            {
+                bool shapeMatch = selectedFeatures[0] == "All" || obj.Features.Shape == selectedFeatures[0];
+                bool marginMatch = selectedFeatures[1] == "All" || obj.Features.Margin == selectedFeatures[1];
+                bool venationMatch = selectedFeatures[2] == "All" || obj.Features.Venation == selectedFeatures[2];
+
+                // Debug output
+                Console.WriteLine($"Checking {obj.Name}: ShapeMatch={shapeMatch}, MarginMatch={marginMatch}, VenationMatch={venationMatch}");
+
+                return shapeMatch && marginMatch && venationMatch;
+            }).ToList();
+
+            // Print the filtered list
+            if (filteredObjects.Count > 0)
+            {
+                Console.WriteLine("Filtered Objects:");
+                foreach (var obj in filteredObjects)
+                {
+                    Console.WriteLine(obj.Name);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No objects matched the filter criteria.");
+            }
+        }
+    }
+
+
+    private void OnFeatureChange(int index, string value)
+    {
+        selectedFeatures[index] = value;
+        FilterObjects();
+        StateHasChanged();
+    }
+}
+<div class="container">
+    <div class="left-column">
+
+        @if (dataModel?.FeatureOptions != null)
+        {
+            <h4> Select the features of the leaves </h4>
+            foreach (var feature in dataModel.FeatureOptions)
+            {
+                int index = dataModel.FeatureOptions.Keys.ToList().IndexOf(feature.Key);
+        
+                <label>Select @CapitalizeFirstLetter(feature.Key)</label>
+                <select @onchange="(e) => OnFeatureChange(index, e.Value.ToString())">
+                    
+                    <option value="All">All</option>
+                    @foreach (var option in feature.Value)
+                    {
+                        <option value="@option.Id">@option.FullName</option>
+                    }
+                </select><br>
+            }
+        }
+        else
+        {
+            <p style="color:red">FeatureOptions is null or not loaded.</p>
+        }
+        
+        @if (filteredObjects.Any())
+        {
+            <h4>Select the leaves you want to know more!</h4>
+            <select @bind="SelectedObject">
+                <option disabled selected value="">Select Object</option>
+                @foreach (var obj in filteredObjects)
+                {
+                    <option value="@obj.Name">@obj.Name</option>
+                }
+            </select>
+        }
+        else
+        {
+            <p>No objects match the selected features.</p>
+        }
+    </div>
+    <div class="right-column">
+        
+        @code {
+            private string selectedObject;
+            private ObjectItem? selectedObjectItem;
+
+            private string SelectedObject
+            {
+                get => selectedObject;
+                set
+                {
+                    selectedObject = value;
+                    UpdateSelectedObjectItem();
+                }
+            }
+
+            private void UpdateSelectedObjectItem()
+            {
+                selectedObjectItem = dataModel?.Objects?.FirstOrDefault(obj => obj.Name == selectedObject);
+            }
+        }
+
+
+            @if (selectedObjectItem != null)
+            {
+                <h5>Features of @selectedObjectItem.Name</h5>
+                <p>@selectedObjectItem.Text</p> <!-- Display the paragraph -->
+
+            <ul>
+                <li>Shape: @selectedObjectItem.Features.Shape</li>
+                <li>Margin: @selectedObjectItem.Features.Margin</li>
+                <li>Venation: @selectedObjectItem.Features.Venation</li>
+
+            </ul>
+            }
+        
+    </div>
+</div>

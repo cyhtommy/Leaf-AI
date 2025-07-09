@@ -1,0 +1,264 @@
+{
+    "feature_options": {
+        "shape": [
+            { "id": "elliptic", "full_name": "Elliptic" },
+            { "id": "ovate", "full_name": "Ovate" },
+            { "id": "cordate", "full_name": "Cordate" }
+        ],
+        "margin": [
+            { "id": "dentate", "full_name": "Dentate" },
+            { "id": "serrate", "full_name": "Serrate" },
+            { "id": "smooth", "full_name": "Smooth (Entire)" }
+        ],
+        "venation": [
+            { "id": "pinnate", "full_name": "Pinnate" },
+            { "id": "palmate", "full_name": "Palmate" },
+            { "id": "parallel", "full_name": "Parallel" }
+        ]
+    },
+    "objects": [
+            {
+                "name": "Cherry (Prunus spp.)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "dentate",
+                    "venation": "pinnate"
+                },
+                "text": "The cherry tree is known for its beautiful blossoms and edible fruit."
+            },
+            {
+                "name": "Elderberry (Sambucus spp.)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "dentate",
+                    "venation": "palmate"
+                },
+                "text": "Elderberries are valued for their medicinal properties and culinary uses."
+            },
+            {
+                "name": "Bamboo (Bambusoideae family)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "dentate",
+                    "venation": "parallel"
+                },
+                "text": "Bamboo is a fast-growing grass known for its versatility and strength."
+            },
+            {
+                "name": "Holly (Ilex aquifolium)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "serrate",
+                    "venation": "pinnate"
+                },
+                "text": "Holly is often associated with Christmas decor due to its vibrant red berries."
+            },
+            {
+                "name": "Horse Chestnut (Aesculus hippocastanum)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "serrate",
+                    "venation": "palmate"
+                },
+                "text": "Horse chestnut trees are known for their large, showy flower clusters."
+            },
+            {
+                "name": "Willow (Salix spp.)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "serrate",
+                    "venation": "parallel"
+                },
+                "text": "Willows thrive near water and are known for their flexible branches."
+            },
+            {
+                "name": "Magnolia (Magnolia spp.)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "smooth",
+                    "venation": "pinnate"
+                },
+                "text": "Magnolias are celebrated for their large, fragrant flowers."
+            },
+            {
+                "name": "Rubber Plant (Ficus elastica)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "smooth",
+                    "venation": "palmate"
+                },
+                "text": "The rubber plant is popular as an indoor houseplant for its glossy leaves."
+            },
+            {
+                "name": "Laurel (Laurus nobilis)",
+                "features": {
+                    "shape": "elliptic",
+                    "margin": "smooth",
+                    "venation": "parallel"
+                },
+                "text": "Laurel is often used as a culinary herb and symbolizes victory."
+            },
+            {
+                "name": "Dogwood (Cornus spp.)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "dentate",
+                    "venation": "pinnate"
+                },
+                "text": "Dogwoods are known for their stunning spring flowers and unique bark."
+            },
+            {
+                "name": "Sycamore (Platanus spp.)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "dentate",
+                    "venation": "palmate"
+                },
+                "text": "Sycamores are large trees known for their distinctive peeling bark."
+            },
+            {
+                "name": "Bittercress (Cardamine spp.)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "dentate",
+                    "venation": "parallel"
+                },
+                "text": "Bittercress is often found in moist environments and can be eaten."
+            },
+            {
+                "name": "Peach (Prunus persica)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "serrate",
+                    "venation": "pinnate"
+                },
+                "text": "Peach trees are known for their sweet fruits and beautiful blossoms."
+            },
+            {
+                "name": "Linden (Tilia spp.)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "serrate",
+                    "venation": "palmate"
+                },
+                "text": "Linden trees are favored for their fragrant flowers and shade."
+            },
+            {
+                "name": "Cabbage (Brassica oleracea)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "serrate",
+                    "venation": "parallel"
+                },
+                "text": "Cabbage is a versatile vegetable used in various cuisines around the world."
+            },
+            {
+                "name": "Avocado (Persea americana)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "smooth",
+                    "venation": "pinnate"
+                },
+                "text": "Avocado is prized for its creamy fruit, rich in healthy fats."
+            },
+            {
+                "name": "Persimmon (Diospyros spp.)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "smooth",
+                    "venation": "palmate"
+                },
+                "text": "Persimmons are sweet fruits that are enjoyed fresh or dried."
+            },
+            {
+                "name": "Citrus (Citrus spp.)",
+                "features": {
+                    "shape": "ovate",
+                    "margin": "smooth",
+                    "venation": "parallel"
+                },
+                "text": "Citrus trees are known for their juicy fruits and aromatic leaves."
+            },
+            {
+                "name": "Redbud (Cercis canadensis)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "dentate",
+                    "venation": "pinnate"
+                },
+                "text": "Redbuds are celebrated for their stunning pink flowers in early spring."
+            },
+            {
+                "name": "Sweetheart (Cercis canadensis)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "dentate",
+                    "venation": "palmate"
+                },
+                "text": "Sweetheart trees are often admired for their heart-shaped leaves."
+            },
+            {
+                "name": "Himalayan Balsam (Impatiens glandulifera)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "dentate",
+                    "venation": "parallel"
+                },
+                "text": "Himalayan Balsam is known for its beautiful flowers and rapid growth."
+            },
+            {
+                "name": "Burdock (Arctium spp.)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "serrate",
+                    "venation": "pinnate"
+                },
+                "text": "Burdock is often used in traditional medicine and for culinary purposes."
+            },
+            {
+                "name": "Arum (Arum spp.)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "serrate",
+                    "venation": "palmate"
+                },
+                "text": "Arum plants are known for their unique flower structures and foliage."
+            },
+            {
+                "name": "Butterfly Bush (Buddleja spp.)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "serrate",
+                    "venation": "parallel"
+                },
+                "text": "Butterfly Bush attracts butterflies with its fragrant flowers."
+            },
+            {
+                "name": "Cinnamon (Cinnamomum verum)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "smooth",
+                    "venation": "pinnate"
+                },
+                "text": "Cinnamon is valued for its aromatic bark and culinary uses."
+            },
+            {
+                "name": "Mugwort (Artemisia vulgaris)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "smooth",
+                    "venation": "palmate"
+                },
+                "text": "Mugwort is often used in herbal medicine and cooking."
+            },
+            {
+                "name": "Chinese Water Chestnut (Eleocharis dulcis)",
+                "features": {
+                    "shape": "cordate",
+                    "margin": "smooth",
+                    "venation": "parallel"
+                },
+                "text": "Chinese Water Chestnut is a popular ingredient in Asian cuisine."
+            }
+        ]
+}

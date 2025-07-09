@@ -1,0 +1,146 @@
+﻿@page "/"
+@inject ImageService ImageService
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+<style>
+    .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    }
+
+    .left-column {
+    flex: 0 0 1000px;
+    margin-right: 20px; /* Space between columns */
+    }
+
+    .right-column {
+    flex: 1; /* Fixed width for the dropdown column */
+    }
+</style>
+
+<div class="container">
+    <div class="left-column">
+        <h1>Hello! Let's learn about Leaves!</h1>
+        @if (ImageService.ImageDataUrl != null)
+        {
+            <div style="margin-top:20px;">
+                <img src="@ImageService.ImageDataUrl" alt="Uploaded Image" style="max-width:400px; max-height:400px;" />
+            </div>
+            @if (isLeaf && showText)
+            {
+                <div style="position: absolute; top: 200px; left: 500px; width: 100px; height: 100px;  border: 2px solid red; background-color: transparent; opacity: 0.5;"></div>
+            }
+            @if (leafVenation)
+            {
+                <p>With all these feature, we can identify the leaf to be a Lemon leaf! Good Work!</p>
+            }
+            <button @onclick="ShowText">Start</button>
+            
+        }
+        else
+        {
+            <NavLink href="image-upload" Match="NavLinkMatch.All">
+                <button>Upload your image of Leaves</button>
+            </NavLink>
+        }
+    </div>
+    <div class="right-column">
+        <p>Test condition:</p>
+        <select @onchange="OnLeafChange">
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+        @if (showText)
+        {
+            <p>Let me check the image!</p>
+            @if (isLeaf)
+            {
+                <p>I can find the leave in the image!</p>
+                <p>Am I correctly identifying the region of the leaf?</p>
+                <button @onclick="PlaceCorrectly">Yes</button>
+                <button @onclick="PlaceIncorrectly">No</button>
+                @if (placeCorrectly)
+                {
+                    <p>Let's work on it together. First, let's identify the leaf shape</p>
+                    <button @onclick="LeafShape">Elliptic</button>
+                    <button @onclick="LeafShape">Ovate</button>
+                    <button @onclick="LeafShape">Cordate</button>
+                    @if (leafShape)
+                    {
+                        <p>Yes, it's --- in shape! (not checking it for now)</p>
+                        <p>Now, let's identify the leaf margin type</p>
+                        <button @onclick="LeafMargin">Dentate</button>
+                        <button @onclick="LeafMargin">Serrate</button>
+                        <button @onclick="LeafMargin">Smooth</button>
+                        @if (leafMargin)
+                        {
+                            <p>Yes, its margin in of --- type! (not checking it for now)</p>
+                            <p>Now, let's identify the leaf venation type</p>
+                            <button @onclick="LeafVenation">Pinnate</button>
+                            <button @onclick="LeafVenation">Palmate</button>
+                            <button @onclick="LeafVenation">Parallel</button>
+                            
+                        }
+                    }
+                }
+            }
+            else
+            {
+                <p>Sorry! I cannot find any leaves in the image. Let's head over to the database page!</p>
+                <p>I can use your help to work on the classification!</p>
+            }
+        }
+    </div>
+</div>
+
+
+@code {
+    private bool showText = false;
+    private bool isLeaf = true;
+    private bool placeCorrectly = false;
+    private bool leafShape = false;
+    private bool leafMargin = false;
+    private bool leafVenation = false;
+
+    private void ShowText()
+    {
+        showText = true;
+        Console.WriteLine("ShowText method called. showText is now true.");
+    }
+
+    private void OnLeafChange(ChangeEventArgs e)
+    {
+        isLeaf = bool.Parse(e.Value.ToString());
+    }
+
+
+    private void PlaceCorrectly()
+    {
+        placeCorrectly = true;
+        Console.WriteLine("The square is placed correctly.");
+    }
+
+    private void LeafShape()
+    {
+        leafShape = true;
+    }
+
+    private void LeafMargin()
+    {
+        leafMargin = true;
+    }
+
+    private void LeafVenation()
+    {
+        leafVenation = true;
+    }
+    private void PlaceIncorrectly()
+    {
+        // Logic for when the user says the square is not placed correctly
+        Console.WriteLine("The square is not placed correctly.");
+    }
+}
+
+
